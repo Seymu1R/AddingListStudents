@@ -59,14 +59,11 @@ namespace University.API.Controllers
         [HttpPost("SaveAll")]
         public async Task<IActionResult> PostAll([FromBody] List<StudentCreateDto> studentCreateDtos)
         {
-            List < Student> students = new List<Student>();
-            foreach (StudentCreateDto item in studentCreateDtos)
-            {
-              var createdStudent = _mapper.Map<Student>(item);                
-                students.Add(createdStudent);
-            }
+            List<Student> students = _mapper.Map<List<StudentCreateDto>, List<Student>>(studentCreateDtos);
+
             await _studentRepository.AddAllAsync(students);
             return Ok(students);
+          
         }
         [HttpPost("SaveAllp")]
         [HttpPost("SaveAllp")]
